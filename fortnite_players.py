@@ -9,15 +9,16 @@ st.write("""
 ## Gráficos usando la base de datos estadística de Fortnite.
 """)
 
+solos_top20 = fortnite[['Player','Solo score']].sort_values('Solo score',ascending=False).head(20)
 
-df1 = df[['Solo score']]
-df1 = df1.sort_values(by='Solo score', ascending=False).head(50)
+#df1 = df[['Solo score']]
+#df1 = df1.sort_values(by='Solo score', ascending=False).head(10)
 
 
 fig, ax = plt.subplots(figsize=(12, 6)) 
 
 
-ax.bar(df1.index.astype(str), df1['Solo score'], color='#3498db') 
+ax.bar(solos_top20.index.astype(str), solos_top20['Solo score'], color='#3498db') 
 
 
 ax.set_title('Top 50 Solo Scores')
@@ -25,8 +26,6 @@ ax.set_xlabel('Índice / Jugador')
 ax.set_ylabel('Score')
 plt.xticks(rotation=90, fontsize=8) # Rotamos etiquetas del eje X si son nombres largos
 
-# --- Mostrar en Streamlit ---
-st.pyplot(fig)
 
 #--------------------- nuevo codigo ------------
 
@@ -42,7 +41,7 @@ for spine in ax.spines.values():
     spine.set_visible(False)
 
 
-max_val = df1['Solo score'].max()
+max_val = solos_top20['Solo score'].max()
 # Definimos el paso: cada 1 millón (1,000,000)
 step = 1_000_000
 
@@ -58,7 +57,7 @@ ax.set_yticklabels(yticks_labels)
 
 # 4. Ajustes del Eje X
 plt.xticks(rotation=-90, fontsize=9)
-plt.xlim(-0.6, len(df1) - 0.4)
+plt.xlim(-0.6, len(solos_top20) - 0.4)
 
 # --- Mostrar en Streamlit ---
 plt.tight_layout()
