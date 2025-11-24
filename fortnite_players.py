@@ -9,5 +9,4 @@ st.write("""
 ## Gráficos usando la base de datos estadísticab de Fortnite.
 """)
 
-
 df.head()
