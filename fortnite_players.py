@@ -13,3 +13,4 @@ df1 = df[['Solo score']]
 df1 = df1.sort_values(by='Solo score', ascending=False).head(50)
 fig1 = go.Figure(go.Bar(x=df1.index, y=df1['Solo score']))
 fig1.show()
+
