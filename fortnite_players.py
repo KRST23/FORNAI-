@@ -11,6 +11,17 @@ st.write("""
 
 df1 = df[['Solo score']]
 df1 = df1.sort_values(by='Solo score', ascending=False).head(50)
-fig1 = go.Figure(go.Bar(x=df1.index, y=df1['Solo score']))
-fig1.show()
 
+
+fig, ax = plt.subplots(figsize=(12, 6)) 
+
+ax.bar(df1.index.astype(str), df1['Solo score'], color='#3498db') 
+
+
+ax.set_title('Top 50 Solo Scores')
+ax.set_xlabel('Índice / Jugador')
+ax.set_ylabel('Score')
+plt.xticks(rotation=90, fontsize=8) 
+
+
+st.pyplot(fig)
