@@ -57,7 +57,7 @@ ax.set_yticklabels(yticks_labels)
 
 # 4. Ajustes del Eje X
 plt.xticks(rotation=-90, fontsize=9)
-plt.xlim(-0.6, len(solos_top20) - 0.4)
+plt.xlim(-0.6, len(solos_top10) - 0.4)
 
 # --- Mostrar en Streamlit ---
 plt.tight_layout()
