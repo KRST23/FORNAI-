@@ -8,3 +8,6 @@ st.write("""
 # STATS FORTNITE PLAYERS.
 ## Gráficos usando la base de datos estadísticab de Fortnite.
 """)
+
+
+df.head()
