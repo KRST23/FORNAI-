@@ -10,7 +10,7 @@ st.write("""
 """)
 
 
---------------------- nuevo codigo ------------
+#--------------------- nuevo codigo ------------
 
 df1 = df[['Solo score']]
 df1 = df1.sort_values(by='Solo score', ascending=False).head(10)
