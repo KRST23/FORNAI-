@@ -15,7 +15,7 @@ df1 = df1.sort_values(by='Solo score', ascending=False).head(50)
 
 fig, ax = plt.subplots(figsize=(12, 6)) 
 
-ax.bar(df1.index.astype(str), df1['Solo score'], color='#3498db') 
+ax.bar(df1.index.astype(str), df1['Solo score'], color='#06EAB9') 
 
 
 ax.set_title('Top 50 Solo Scores')
