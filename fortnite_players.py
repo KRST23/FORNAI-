@@ -9,7 +9,7 @@ st.write("""
 ## Gráficos usando la base de datos estadística de Fortnite.
 """)
 
-solos_top20 = fortnite[['Player','Solo score']].sort_values('Solo score',ascending=False).head(20)
+solos_top20 = df[['Player','Solo score']].sort_values('Solo score',ascending=False).head(20)
 
 #df1 = df[['Solo score']]
 #df1 = df1.sort_values(by='Solo score', ascending=False).head(10)
