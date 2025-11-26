@@ -11,29 +11,33 @@ st.write("""
 
 #--------------grafico de horas x partidas ganadas --------------#
 
-# 1. Ordenar toda la base de datos por "Solo minutesPlayed" de menor a mayor (ascendente)
-df_sorted = df.sort_values(by='Solo minutesPlayed', ascending=True).copy()
+# Sort the dataframe by 'Solo minutesPlayed' descending
+df_sorted = df.sort_values(by='Solo minutesPlayed', ascending=False)
 
-# 2. Preparar el DataFrame para el gráfico:
-#    *** Solo incluimos 'Solo minutesPlayed' como línea a mostrar. ***
-data_plot = df_sorted[['Player', 'Solo minutesPlayed']].copy()
+# Take the top 20 players for readability
+top_players = df_sorted.head(20)
 
-# 3. Usar el nombre del jugador como índice (etiquetas del eje X)
-data_plot = data_plot.set_index('Player')
+# Create the plot
+fig, ax1 = plt.subplots(figsize=(14, 7))
 
-# 4. Renombrar la columna para la leyenda
-data_plot = data_plot.rename(columns={
-    'Solo minutesPlayed': 'Minutos Jugados (Orden Ascendente)'
-})
+# Plot 'Solo minutesPlayed' on the primary y-axis
+color = 'tab:blue'
+ax1.set_xlabel('Player')
+ax1.set_ylabel('Solo minutesPlayed', color=color)
+ax1.plot(top_players['Player'], top_players['Solo minutesPlayed'], color=color, marker='o', label='Solo minutesPlayed')
+ax1.tick_params(axis='y', labelcolor=color)
+ax1.tick_params(axis='x', rotation=45)
 
-# --- Creación del Gráfico de Líneas Nativo de Streamlit ---
+# Create a second y-axis for 'Solo top1'
+ax2 = ax1.twinx()
+color = 'tab:red'
+ax2.set_ylabel('Solo top1', color=color)
+ax2.plot(top_players['Player'], top_players['Solo top1'], color=color, marker='x', linestyle='--', label='Solo top1')
+ax2.tick_params(axis='y', labelcolor=color)
 
-st.subheader('Visualización del Total de Minutos Jugados')
-st.warning("⚠️ **Nota:** El eje X intenta mostrar el nombre de más de 1400 jugadores, por lo que estará muy denso. Use el cursor sobre la línea para ver el nombre del jugador y el valor exacto de minutos jugados. ")
+# Title and layout
+plt.title('Solo Minutes Played vs Solo Top 1 (Top 20 Players)')
+plt.tight_layout()
 
-# st.line_chart usa el índice (Jugador) como eje X y la columna restante como línea Y.
-st.line_chart(data_plot)
-
-# Opcional: Mostrar los datos subyacentes
-st.subheader('Vista Rápida de los Jugadores con Menos Minutos Jugados')
-st.dataframe(data_plot.head(10))
+# Save the plot
+plt.savefig('solo_stats_line_chart.png')
