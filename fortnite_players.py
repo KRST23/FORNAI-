@@ -10,6 +10,9 @@ st.write("""
 """)
 
 #--------------grafico de horas x partidas ganadas --------------#
+
+df_sorted = df.sort_values(by='Solo minutesPlayed')
+
 # --- Creación del Gráfico de Líneas con Matplotlib ---
 
 # 1. Crear la figura y los ejes
