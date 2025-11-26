@@ -12,7 +12,7 @@ st.write("""
 #--------------grafico de horas x partidas ganadas --------------#
 
 # 1. Ordenar por "Solo minutesPlayed" y seleccionar el Top 10
-top_10_players = df.sort_values(by='Solo minutesPlayed', ascending=False).head(100).copy()
+top_10_players = df.sort_values(by='Solo minutesPlayed', ascending=True).head(100).copy()
 
 # 2. Preparar el DataFrame para el gráfico:
 data_plot = top_10_players[['Player', 'Solo minutesPlayed', 'Solo top1']].copy()
