@@ -13,7 +13,7 @@ st.write("""
 
 # 1. Ordenar toda la base de datos por "Solo minutesPlayed" de menor a mayor (ascendente)
 #    Esto define el orden de la línea de tendencia, como usted solicitó.
-df_sorted = df.sort_values(by='Solo minutesPlayed', ascending=True).head(100).copy()
+df_sorted = df.sort_values(by='Solo minutesPlayed', ascending=True).head(50).copy()
 
 # 2. Preparar el DataFrame para el gráfico:
 data_plot = df_sorted[['Player', 'Solo minutesPlayed', 'Solo top1']].copy()
