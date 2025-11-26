@@ -11,33 +11,31 @@ st.write("""
 
 #--------------grafico de horas x partidas ganadas --------------#
 
-# 1. Ordenar por "Solo minutesPlayed" y seleccionar el Top 10 (mantenemos los 10 con más minutos)
-top_10_players = df.sort_values(by='Solo minutesPlayed', ascending=False).head(100).copy()
+# 1. Ordenar toda la base de datos por "Solo minutesPlayed" de menor a mayor (ascendente)
+#    Esto define el orden de la línea de tendencia, como usted solicitó.
+df_sorted = df.sort_values(by='Solo minutesPlayed', ascending=True).copy()
 
 # 2. Preparar el DataFrame para el gráfico:
-data_plot = top_10_players[['Player', 'Solo minutesPlayed', 'Solo top1']].copy()
+data_plot = df_sorted[['Player', 'Solo minutesPlayed', 'Solo top1']].copy()
 
 # 3. Usar el nombre del jugador como índice (etiquetas del eje X)
+#    Esto asegura que las dos líneas estén perfectamente alineadas.
 data_plot = data_plot.set_index('Player')
 
-# 4. Renombrar columnas para la leyenda
+# 4. Renombrar columnas para la leyenda (Las dos líneas a mostrar)
 data_plot = data_plot.rename(columns={
-    'Solo minutesPlayed': 'Minutos Jugados (Solo)',
-    'Solo top1': 'Victorias (Solo Top 1)'
+    'Solo minutesPlayed': 'Minutos Jugados (Línea 1 - Menor a Mayor)',
+    'Solo top1': 'Victorias (Línea 2 - En el mismo orden)'
 })
-
-# 5. PASO CRÍTICO: Ordenar el DataFrame (y por lo tanto el eje X del gráfico) por "Minutos Jugados (Solo)"
-#    de forma ascendente (menor a mayor).
-data_plot = data_plot.sort_values(by='Minutos Jugados (Solo)', ascending=True)
 
 # --- Creación del Gráfico de Líneas Nativo de Streamlit ---
 
-st.subheader('Comparativa de Minutos Jugados vs. Victorias (Top 1)')
-st.warning("Advertencia: Debido a que los 'Minutos Jugados' son mucho mayores que las 'Victorias', la línea de 'Victorias' aparecerá cerca de la base. Use el cursor para ver el valor exacto.")
+st.subheader('Gráfico de Doble Línea y Ordenamiento Ascendente')
+st.warning("⚠️ **Nota:** El eje X intenta mostrar el nombre de los más de 1400 jugadores, por lo que aparecerá muy denso. El orden de los puntos sigue perfectamente la cantidad de minutos jugados de forma ascendente. **Use el cursor para ver el nombre del jugador y los valores exactos.**")
 
 # st.line_chart usa el índice (Jugador) como eje X y las columnas restantes como líneas Y.
 st.line_chart(data_plot)
 
 # Opcional: Mostrar los datos subyacentes
-st.subheader('Detalle de los 10 Jugadores (Ordenados de Menor a Mayor Minutos Jugados)')
-st.dataframe(data_plot)
+st.subheader('Vista Rápida de los Primeros Jugadores')
+st.dataframe(data_plot.head())
