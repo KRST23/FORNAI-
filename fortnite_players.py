@@ -11,26 +11,32 @@ st.write("""
 
 #--------------grafico de horas x partidas ganadas --------------#
 
-#--- Preparación de Datos ---
-# 1. Seleccionamos las columnas necesarias.
-data_plot = df[['Solo minutesPlayed', 'Solo top1']].copy()
+# --- Preparación de Datos: Top 10 ---
 
-# 2. Para que el gráfico de Streamlit use "Solo minutesPlayed" como el eje X (la base de la tendencia),
-#    establecemos esa columna como índice (etiquetas del eje X).
-data_plot = data_plot.set_index('Solo minutesPlayed')
+# 1. Seleccionar columnas relevantes
+data_plot = df[['Player', 'Solo minutesPlayed', 'Solo top1']].copy()
 
-# 3. Renombramos la columna restante para que sea un buen título de leyenda.
-data_plot = data_plot.rename(columns={'Solo top1': 'Victorias (Solo Top 1)'})
+# 2. Ordenar por Minutos Jugados (descendente) y obtener el Top 10
+data_plot = data_plot.sort_values(by='Solo minutesPlayed', ascending=False).head(10)
 
-# 4. Ordenamos por el nuevo índice (Minutos Jugados) para asegurar una línea de tendencia clara.
-data_plot = data_plot.sort_index()
+# 3. Preparar el DataFrame para st.bar_chart
+#   a) Establecer 'Player' como índice para que se use como etiqueta del eje X (categoría).
+data_plot = data_plot.set_index('Player')
 
-# --- Creación del Gráfico de Líneas Nativo de Streamlit ---
+#   b) Seleccionar y renombrar la columna de victorias para el eje Y.
+data_plot = data_plot[['Solo top1']].rename(columns={'Solo top1': 'Victorias (Solo Top 1)'})
 
-st.subheader('Victorias (Solo Top 1) por Minutos Jugados')
-# st.line_chart usa el índice (Minutos Jugados) como eje X y las columnas restantes (Victorias) como eje Y.
-st.line_chart(data_plot)
+# --- Creación del Gráfico de Barras Nativo de Streamlit ---
+
+st.subheader('Victorias (Solo Top 1) para el Top 10 de Jugadores por Minutos Jugados')
+# st.bar_chart usa el índice (Player) como eje X y las columnas restantes (Victorias) como eje Y.
+st.bar_chart(data_plot)
 
 # Opcional: Mostrar los datos subyacentes
-st.subheader('Datos Utilizados')
-st.dataframe(data_plot.head(10))
+st.subheader('Tabla de Datos del Top 10')
+# Volvemos a generar la tabla con las tres columnas para mayor claridad
+df_top10_display = df.sort_values(by='Solo minutesPlayed', ascending=False).head(10)
+st.dataframe(df_top10_display[['Player', 'Solo minutesPlayed', 'Solo top1']].rename(columns={
+    'Solo minutesPlayed': 'Minutos Jugados',
+    'Solo top1': 'Victorias (Top 1)'
+}))
