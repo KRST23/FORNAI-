@@ -45,7 +45,7 @@ ax2.plot(df_chart.index, df_chart['Solo top1'], color=color2, linestyle='--', ma
 ax2.tick_params(axis='y', labelcolor=color2)
 
 # Título y ajustes
-plt.title(f'Comparación: Minutos Jugados vs Victorias (Top {top_n} jugadores)', fontsize=14)
+plt.title(f'Relacion: Minutos Jugados vs Victorias (Top {top_n} jugadores)', fontsize=14)
 fig.tight_layout()
 
 # 4. Mostrar en Streamlit
