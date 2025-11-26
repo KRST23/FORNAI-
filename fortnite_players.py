@@ -10,7 +10,8 @@ st.write("""
 """)
 
 #--------------grafico de horas x partidas ganadas --------------#
-# 1. Ordenar por "Solo minutesPlayed" y seleccionar el Top 10 (DESCENDENTE para encontrar a los más altos)
+
+# 1. Ordenar por "Solo minutesPlayed" y seleccionar el Top 10 (mantenemos los 10 con más minutos)
 top_10_players = df.sort_values(by='Solo minutesPlayed', ascending=False).head(100).copy()
 
 # 2. Preparar el DataFrame para el gráfico:
@@ -25,7 +26,8 @@ data_plot = data_plot.rename(columns={
     'Solo top1': 'Victorias (Solo Top 1)'
 })
 
-# 5. ¡NUEVO! Ordenar el DataFrame por "Minutos Jugados (Solo)" de menor a mayor (ASCENDENTE)
+# 5. PASO CRÍTICO: Ordenar el DataFrame (y por lo tanto el eje X del gráfico) por "Minutos Jugados (Solo)"
+#    de forma ascendente (menor a mayor).
 data_plot = data_plot.sort_values(by='Minutos Jugados (Solo)', ascending=True)
 
 # --- Creación del Gráfico de Líneas Nativo de Streamlit ---
@@ -37,5 +39,5 @@ st.warning("Advertencia: Debido a que los 'Minutos Jugados' son mucho mayores qu
 st.line_chart(data_plot)
 
 # Opcional: Mostrar los datos subyacentes
-st.subheader('Detalle de los 10 Jugadores (Ordenados por Minutos Jugados Ascendente)')
+st.subheader('Detalle de los 10 Jugadores (Ordenados de Menor a Mayor Minutos Jugados)')
 st.dataframe(data_plot)
