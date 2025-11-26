@@ -11,37 +11,26 @@ st.write("""
 
 #--------------grafico de horas x partidas ganadas --------------#
 
-df_sorted = df.sort_values(by='Solo minutesPlayed')
+#--- Preparación de Datos ---
+# 1. Seleccionamos las columnas necesarias.
+data_plot = df[['Solo minutesPlayed', 'Solo top1']].copy()
 
-# --- Creación del Gráfico de Líneas con Matplotlib ---
+# 2. Para que el gráfico de Streamlit use "Solo minutesPlayed" como el eje X (la base de la tendencia),
+#    establecemos esa columna como índice (etiquetas del eje X).
+data_plot = data_plot.set_index('Solo minutesPlayed')
 
-# 1. Crear la figura y los ejes
-fig, ax = plt.subplots(figsize=(10, 6))
+# 3. Renombramos la columna restante para que sea un buen título de leyenda.
+data_plot = data_plot.rename(columns={'Solo top1': 'Victorias (Solo Top 1)'})
 
-# 2. Trazar el gráfico de líneas
-# Eje X: Solo minutesPlayed
-# Eje Y: Solo top1
+# 4. Ordenamos por el nuevo índice (Minutos Jugados) para asegurar una línea de tendencia clara.
+data_plot = data_plot.sort_index()
 
-ax.plot(
-    df_sorted['Solo minutesPlayed'],
-    df_sorted['Solo top1'],
-    linestyle='-',
-    marker='o',
-    markersize=2,
-    linewidth=1.5,
-    color='skyblue'
-)
+# --- Creación del Gráfico de Líneas Nativo de Streamlit ---
 
-# 3. Personalizar el gráfico
-ax.set_title('Victorias (Solo Top 1) vs. Minutos Jugados (Solo)', fontsize=16)
-ax.set_xlabel('Minutos Jugados en Modo Solo', fontsize=12)
-ax.set_ylabel('Victorias (Solo Top 1)', fontsize=12)
-ax.grid(True, linestyle='--', alpha=0.7)
-plt.tight_layout() # Ajusta el diseño para evitar truncar etiquetas
-
-# 4. Mostrar el gráfico en Streamlit
-st.pyplot(fig)
+st.subheader('Victorias (Solo Top 1) por Minutos Jugados')
+# st.line_chart usa el índice (Minutos Jugados) como eje X y las columnas restantes (Victorias) como eje Y.
+st.line_chart(data_plot)
 
 # Opcional: Mostrar los datos subyacentes
 st.subheader('Datos Utilizados')
-st.dataframe(df_sorted[['Player', 'Solo minutesPlayed', 'Solo top1']].head(10))
+st.dataframe(data_plot.head(10))
