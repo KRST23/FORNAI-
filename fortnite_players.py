@@ -9,56 +9,38 @@ st.write("""
 ## Gráficos usando la base de datos estadística de Fortnite.
 """)
 
-solos_top10 = df[['Player','Solo score']].sort_values('Solo score',ascending=False).head(20)
-
-#df1 = df[['Solo score']]
-#df1 = df1.sort_values(by='Solo score', ascending=False).head(10)
+#--------------grafico de horas x partidas ganadas --------------#
 
 
-fig, ax = plt.subplots(figsize=(12, 6)) 
+
+# Eliminar filas con valores nulos después de la conversión (si los hay)
+df.dropna(subset=['Solo minutesPlayed'], inplace=True)
+
+# 2. Extraer la hora del día (0-23)
+df['HOUR'] = df['Solo minutesPlayed'].dt.hour
 
 
-ax.bar(solos_top10.index.astype(str), solos_top10['Solo score'], color='#3498db') 
+# Esto nos da la cantidad total de alarmas (sumada) por cada una de las hora
+alarms_per_hour = df.groupby('HOUR')['Solo minutesPlayed'].sum().reset_index()
+
+# creamo la gráfica de líneas
+plt.figure(figsize=(12, 6), facecolor='white')
+
+plt.plot(alarms_per_hour['HOUR'], alarms_per_hour['Solo minutesPlayed'],
+         marker='o', linestyle='-', color='b')
 
 
-ax.set_title('Top 10 Solo Scores')
-ax.set_xlabel('Índice / Jugador')
-ax.set_ylabel('Score')
-plt.xticks(rotation=90, fontsize=8) # Rotamos etiquetas del eje X si son nombres largos
+#permite que los datos del eje Y sean numeros enteros
+plt.ticklabel_format(style='plain', axis='y')
 
 
-#--------------------- nuevo codigo ------------
+# Configurar etiquetas y título
+plt.title('Cantidad Total de Alarmas por Hora del Día')
+plt.xlabel('Hora del Día (0-23)')
+plt.ylabel('Suma de Solo minutesPlayed ')
 
+# Asegurar que se muestren todas las horas en el eje x
+plt.xticks(range(0, 24))
 
-# 2. Configurar el fondo y la rejilla (Estilo Plotly)
-ax.set_facecolor('#E5ECF6')            # Fondo gris azulado interno
-fig.patch.set_facecolor('white')       # Fondo blanco externo
-ax.grid(axis='y', color='white', linewidth=1) # Rejilla blanca
-ax.set_axisbelow(True)                 # Rejilla detrás de las barras
-
-# 3. Quitar los bordes negros (Spines)
-for spine in ax.spines.values():
-    spine.set_visible(False)
-
-
-max_val = solos_top10['Solo score'].max()
-# Definimos el paso: cada 1 millón (1,000,000)
-step = 1_000_000
-
-
-yticks_values = range(0, int(max_val) + step, step)
-
-
-yticks_labels = [f'{int(y/1_000_000)}M' if y > 0 else '0' for y in yticks_values]
-
-# Aplicamos las marcas y las etiquetas manualmente
-ax.set_yticks(yticks_values)
-ax.set_yticklabels(yticks_labels)
-
-# 4. Ajustes del Eje X
-plt.xticks(rotation=-90, fontsize=9)
-plt.xlim(-0.6, len(solos_top10) - 0.4)
-
-# --- Mostrar en Streamlit ---
-plt.tight_layout()
-st.pyplot(fig)
+# Añadir una rejilla
+plt.grid(True, linestyle='--', alpha=0.6)
