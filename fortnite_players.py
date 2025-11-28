@@ -86,7 +86,7 @@ with col_izquierda:
 	p = np.poly1d(z)
 
 	# Gráfico compacto
-	fig, ax = plt.subplots(figsize=(5, 3.5)) 
+	fig, ax = plt.subplots(figsize=(12, 6)) 
 	ax.scatter(x, y, alpha=0.5, c='#1f77b4', s=5)
 	ax.plot(x, p(x), "r--", linewidth=1, label='Tendencia')
 
