@@ -70,57 +70,41 @@ if st.checkbox("Mostrar datos en tabla"):
 
 
 
+# --- SEGUNDO GRÁFICO: Barras de Score por Modo de Juego ---
 
+st.markdown("---") # Separador visual
+st.title("Puntaje Total por Modo de Juego")
 
-# --- SECCIÓN 1: Gráfico de Barras (Score por Tipo de Juego) ---
-st.header("Score Total por Tipo de Juego (Sin LTM)")
+# 1. Preparar los datos para el segundo gráfico
+# Sumamos el score de toda la columna para cada modo
+modes_list = ['Solo', 'Duos', 'Trios', 'Squads']
+total_scores = [
+    df['Solo score'].sum(),
+    df['Duos score'].sum(),
+    df['Trios score'].sum(),
+    df['Squads score'].sum()
+]
 
-# Calcular los totales
-modes = ['Solo', 'Duos', 'Trios', 'Squads']
-scores = [df[f'{mode} score'].sum() for mode in modes]
+# 2. Crear el gráfico de barras con variables únicas
+fig_bar, ax_bar = plt.subplots(figsize=(10, 6))
 
-# Crear DataFrame para el gráfico
-df_scores = pd.DataFrame({'Modo': modes, 'Score Total': scores})
+# Definir colores para diferenciar
+bar_colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'] # Azul, Naranja, Verde, Rojo
 
-# Crear el gráfico
-fig1, ax = plt.subplots(figsize=(10, 6))
-bars = ax.bar(modes, scores, color=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'])
+bars = ax_bar.bar(modes_list, total_scores, color=bar_colors)
 
-# Etiquetas y formato
-ax.set_ylabel('Puntaje Total (Score)', fontsize=12)
-ax.set_title('Comparación de Puntaje Total por Modo', fontsize=14)
-ax.grid(axis='y', linestyle='--', alpha=0.7)
+ax_bar.set_xlabel('Modo de Juego', fontsize=12)
+ax_bar.set_ylabel('Puntaje Total Acumulado (Score)', fontsize=12)
+ax_bar.set_title('Comparación de Scores: Solo, Duos, Trios y Squads', fontsize=14)
 
-# Formatear eje Y para que no use notación científica (opcional, visualmente mejor)
-ax.ticklabel_format(style='plain', axis='y')
-
-# Añadir los valores encima de las barras
+# Opcional: Agregar el valor exacto encima de cada barra
 for bar in bars:
-	height = bar.get_height()
-	ax.text(bar.get_x() + bar.get_width()/2., height,
-	f'{int(height):,}',
-	ha='center', va='bottom', fontsize=10)
+    height = bar.get_height()
+    ax_bar.text(bar.get_x() + bar.get_width()/2., height,
+            f'{int(height):,}',  # Formato con separador de miles
+            ha='center', va='bottom', fontsize=10)
 
-st.pyplot(fig1)
+# 3. Mostrar el segundo gráfico en Streamlit
+st.pyplot(fig_bar)
 
-# --- SECCIÓN 2: Tu gráfico anterior (Solo Minutes vs Top 1) ---
-st.header("Análisis de Jugadores: Minutos vs Top 1 (Solo)")
 
-# (El código del gráfico anterior iría aquí...)
-df_sorted = df.sort_values(by='Solo minutesPlayed', ascending=False)
-top_n = st.slider("Cantidad de jugadores a mostrar", 10, 200, 50)
-df_chart = df_sorted.head(top_n).reset_index(drop=True)
-
-fig2, ax1 = plt.subplots(figsize=(12, 6))
-ax1.plot(df_chart.index, df_chart['Solo minutesPlayed'], color='tab:blue', label='Minutos')
-ax1.set_ylabel('Minutos (Solo)', color='tab:blue')
-ax1.tick_params(axis='y', labelcolor='tab:blue')
-ax1.set_xticks(df_chart.index)
-ax1.set_xticklabels(df_chart['Player'], rotation=90, fontsize=8)
-
-ax2 = ax1.twinx()
-ax2.plot(df_chart.index, df_chart['Solo top1'], color='tab:red', linestyle='--', label='Top 1')
-ax2.set_ylabel('Top 1', color='tab:red')
-ax2.tick_params(axis='y', labelcolor='tab:red')
-
-st.pyplot(fig2)
