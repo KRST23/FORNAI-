@@ -8,7 +8,7 @@ df = pd.read_csv("Fortnite_players_stats.csv")
 st.write("""
 # STATS FORTNITE PLAYERS.
 ## Gráficos usando la base de datos estadística de Fortnite.
-----------------------------------------------------------------------------------------------
+---
 """)
 
 #--------------grafico de horas x partidas ganadas --------------#
