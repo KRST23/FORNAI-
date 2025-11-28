@@ -23,6 +23,9 @@ top_n = st.sidebar.slider("Cantidad de jugadores a mostrar (Top N)", min_value=1
 # Filtramos los top N jugadores según la selección
 df_chart = df_sorted.head(top_n).reset_index(drop=True)
 
+
+
+
 # 3. Crear el gráfico con Matplotlib
 fig, ax1 = plt.subplots(figsize=(12, 6))
 
@@ -51,3 +54,10 @@ fig.tight_layout()
 # 4. Mostrar en Streamlit
 st.pyplot(fig)
 
+# Mostrar tabla de datos opcional
+
+#para que parta de 1 en teoría
+df_chart.index = df_chart.index + 1
+
+if st.checkbox("Mostrar datos en tabla"):
+	st.dataframe(df_chart[['Player', 'Solo minutesPlayed', 'Solo top1']])
