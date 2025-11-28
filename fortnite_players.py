@@ -69,14 +69,12 @@ if st.checkbox("Mostrar datos en tabla"):
 #________________grafico 4________________
 
 
+# --- SEGUNDO GRÁFICO: Barras de Score por Modo de Juego (Formato Entero) ---
 
-# --- SEGUNDO GRÁFICO: Barras de Score por Modo de Juego ---
-
-st.markdown("---") # Separador visual
+st.markdown("---") 
 st.title("Puntaje Total por Modo de Juego")
 
-# 1. Preparar los datos para el segundo gráfico
-# Sumamos el score de toda la columna para cada modo
+# 1. Preparar los datos 
 modes_list = ['Solo', 'Duos', 'Trios', 'Squads']
 total_scores = [
     df['Solo score'].sum(),
@@ -85,28 +83,35 @@ total_scores = [
     df['Squads score'].sum()
 ]
 
-# 2. Crear el gráfico de barras con variables únicas
+# 2. Crear el gráfico
 fig_bar, ax_bar = plt.subplots(figsize=(10, 6))
 
-# Definir colores para diferenciar
-bar_colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'] # Azul, Naranja, Verde, Rojo
-
+bar_colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'] 
 bars = ax_bar.bar(modes_list, total_scores, color=bar_colors)
 
 ax_bar.set_xlabel('Modo de Juego', fontsize=12)
-ax_bar.set_ylabel('Puntaje Total Acumulado (Score)', fontsize=12)
+ax_bar.set_ylabel('Puntaje Total Acumulado', fontsize=12)
 ax_bar.set_title('Comparación de Scores: Solo, Duos, Trios y Squads', fontsize=14)
 
-ax.ticklabel_format(style='plain', axis='y')
 
-# Opcional: Agregar el valor exacto encima de cada barra
+ax_bar.ticklabel_format(style='plain', axis='y')
+
+
+
+# Etiquetas encima de las barras
 for bar in bars:
     height = bar.get_height()
     ax_bar.text(bar.get_x() + bar.get_width()/2., height,
-            f'{int(height):,}',  # Formato con separador de miles
+            f'{int(height):,}', 
             ha='center', va='bottom', fontsize=10)
 
-# 3. Mostrar el segundo gráfico en Streamlit
+# 3. Mostrar en Streamlit
 st.pyplot(fig_bar)
+
+
+
+
+
+
 
 
