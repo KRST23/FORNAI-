@@ -122,6 +122,62 @@ st.dataframe(df_filtrado, height=400, hide_index=True)
 
 
 
+#_____________grafico 3___________________
+
+
+
+
+# --- TERCER GRÁFICO: Donut Chart de Kills por Modo ---
+
+st.markdown("---")
+st.title("¿Dónde se hacen más Kills?")
+st.write("Distribución del total de eliminaciones por tipo de juego.")
+
+# 1. Preparar los datos
+kills_data = [
+    df['Solo kills'].sum(),
+    df['Duos kills'].sum(),
+    df['Trios kills'].sum(),
+    df['Squads kills'].sum()
+]
+labels_kills = ['Solo', 'Duos', 'Trios', 'Squads']
+colors_kills = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'] # Azul, Naranja, Verde, Rojo
+
+# 2. Crear el gráfico de Donut
+fig_donut, ax_donut = plt.subplots(figsize=(10, 6))
+
+
+wedges, texts, autotexts = ax_donut.pie(
+    kills_data, 
+    labels=None, # Quitamos las etiquetas del gráfico para ponerlas en la leyenda
+    autopct='%1.1f%%', 
+    startangle=140, 
+    colors=colors_kills, 
+    pctdistance=0.80, # Posición de los porcentajes
+    wedgeprops=dict(width=0.4, edgecolor='w'), # Ancho del anillo y borde blanco
+    textprops=dict(color="white", weight="bold")
+)
+
+# 3. Configurar la Leyenda a la derecha
+ax_donut.legend(wedges, labels_kills,
+          title="Modos de Juego",
+          loc="center left",
+          bbox_to_anchor=(1, 0, 0.5, 1)) # Esto mueve la leyenda fuera del gráfico a la derecha
+
+ax_donut.set_title("Porcentaje de Kills Totales (Donut Chart)", fontsize=16)
+
+# 4. Mostrar en Streamlit
+st.pyplot(fig_donut)
+
+# Conclusión
+max_kills_index = kills_data.index(max(kills_data))
+mejor_modo = labels_kills[max_kills_index]
+st.success(f"💡 **Conclusión:** El modo **{mejor_modo}** concentra la mayor cantidad de kills.")
+
+
+
+
+
 
 #________________grafico 4________________
 
