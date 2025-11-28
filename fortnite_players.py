@@ -93,10 +93,7 @@ ax.tick_params(axis='both', labelsize=10)
 ax.legend(fontsize=10)
 ax.grid(True, alpha=0.3)
 
-# --- CORRECCIÓN DE FORMATO NUMÉRICO ---
-# Esto evita la notación científica (ej: 1e6) y muestra el número entero
 ax.ticklabel_format(style='plain', axis='y')
-# Opcional: Si quieres quitarla también del eje X (minutos), usa axis='both'
 
 st.pyplot(fig, use_container_width=True)
 
@@ -110,7 +107,8 @@ st.write("Explora las estadísticas detalladas de los jugadores.")
 # --- DATAFRAME FILTRADO ---
 # 1. Creamos una lista con 'Player' y todas las columnas que tengan "Solo" en el nombre
 # Seleccionamos columnas específicas para que no sea tan ancha la tabla
-cols_to_show = ['Player', 'Solo score', 'Solo minutesPlayed', 'Solo top1', 'Solo kd']
+cols_to_show = ['Player', 'Solo score', 'Solo minutesPlayed']
+
 # Si alguna columna no existe, pandas fallaría, así que usamos intersection para ser seguros
 cols_validas = [c for c in cols_to_show if c in df.columns]
 
