@@ -66,7 +66,7 @@ if st.checkbox("Mostrar datos en tabla"):
 
 
 
-
+st.markdown("---")
 #________________grafico 2___________________
 
 st.subheader("Minutos vs Puntaje")
@@ -168,6 +168,7 @@ ax_donut.set_title("Porcentaje de Kills Totales (Donut Chart)", fontsize=16)
 
 # 4. Mostrar en Streamlit
 st.pyplot(fig_donut)
+
 
 # Conclusión
 max_kills_index = kills_data.index(max(kills_data))
