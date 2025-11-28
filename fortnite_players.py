@@ -122,5 +122,5 @@ if st.checkbox("Mostrar datos en tabla"):
     ax2.plot(df_chart.index, df_chart['Solo top1'], color='tab:red', linestyle='--', label='Top 1')
     ax2.set_ylabel('Top 1', color='tab:red')
     ax2.tick_params(axis='y', labelcolor='tab:red')
-    
+     
     st.pyplot(fig2)
