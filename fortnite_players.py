@@ -83,7 +83,7 @@ scores = [df[f'{mode} score'].sum() for mode in modes]
 df_scores = pd.DataFrame({'Modo': modes, 'Score Total': scores})
 
 # Crear el gráfico
-fig, ax = plt.subplots(figsize=(10, 6))
+fig1, ax = plt.subplots(figsize=(10, 6))
 bars = ax.bar(modes, scores, color=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'])
 
 # Etiquetas y formato
@@ -101,7 +101,7 @@ for bar in bars:
 	f'{int(height):,}',
 	ha='center', va='bottom', fontsize=10)
 
-st.pyplot(fig)
+st.pyplot(fig1)
 
 # --- SECCIÓN 2: Tu gráfico anterior (Solo Minutes vs Top 1) ---
 st.header("Análisis de Jugadores: Minutos vs Top 1 (Solo)")
