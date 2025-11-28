@@ -51,6 +51,3 @@ fig.tight_layout()
 # 4. Mostrar en Streamlit
 st.pyplot(fig)
 
-# Mostrar tabla de datos opcional
-if st.checkbox("Mostrar datos en tabla"):
-	st.dataframe(df_chart[['Player', 'Solo minutesPlayed', 'Solo top1']])
