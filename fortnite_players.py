@@ -97,6 +97,8 @@ ax_bar.set_xlabel('Modo de Juego', fontsize=12)
 ax_bar.set_ylabel('Puntaje Total Acumulado (Score)', fontsize=12)
 ax_bar.set_title('Comparación de Scores: Solo, Duos, Trios y Squads', fontsize=14)
 
+ax.ticklabel_format(style='plain', axis='y')
+
 # Opcional: Agregar el valor exacto encima de cada barra
 for bar in bars:
     height = bar.get_height()
