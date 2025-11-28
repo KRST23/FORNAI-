@@ -96,10 +96,10 @@ ax.ticklabel_format(style='plain', axis='y')
 
 # Añadir los valores encima de las barras
 for bar in bars:
-height = bar.get_height()
-ax.text(bar.get_x() + bar.get_width()/2., height,
-		f'{int(height):,}',
-		ha='center', va='bottom', fontsize=10)
+	height = bar.get_height()
+	ax.text(bar.get_x() + bar.get_width()/2., height,
+	f'{int(height):,}',
+	ha='center', va='bottom', fontsize=10)
 
 st.pyplot(fig)
 
