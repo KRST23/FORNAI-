@@ -107,7 +107,7 @@ st.write("Explora las estadísticas detalladas de los jugadores.")
 
 # --- DATAFRAME FILTRADO ---
 # Creamos el checkbox. Si el usuario lo marca, devuelve True
-mostrar_datos = st.checkbox("Mostrar datos en tabla")
+mostrar_datos = st.checkbox("Mostrar Datos en Tabla")
 
 if mostrar_datos:
     st.write("Explora las estadísticas detalladas de los jugadores.")
