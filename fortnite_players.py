@@ -63,7 +63,8 @@ df_chart.index = df_chart.index + 1
 
 if st.checkbox("Mostrar datos en tabla"):
 	st.dataframe(df_chart[['Player', 'Solo minutesPlayed', 'Solo top1']])
-
+	
+st.success(f" **Conclusión:** Este grafico nos muestra que no necesariamente la cantidad de tiempo te hace ganar mas")
 
 
 
@@ -231,5 +232,9 @@ for bar in bars:
 # 3. Mostrar en Streamlit
 st.pyplot(fig_bar)
 
+
+max_Score_index = Score_data.index(max(kills_data))
+Mas_Score = total_scores[max_Score_index]
+st.success(f" **Conclusión:** el modo de juego que mas Score te da es : {")
 
 
