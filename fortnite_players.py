@@ -13,6 +13,7 @@ st.write("""
 
 #--------------grafico de horas x partidas ganadas --------------#
 
+st.subheader("Minutos Jugados Por victorias en Solo")
 
 # 2. Procesar datos: Ordenar por 'Solo minutesPlayed' de mayor a menor
 df_sorted = df.sort_values(by='Solo minutesPlayed', ascending=False)
