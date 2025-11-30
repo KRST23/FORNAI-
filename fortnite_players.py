@@ -165,7 +165,7 @@ ax_donut.legend(wedges, labels_kills,
           loc="center left",
           bbox_to_anchor=(1, 0, 0.5, 1)) # Esto mueve la leyenda fuera del gráfico a la derecha
 
-ax_donut.set_title("Porcentaje de Kills Totales (Donut Chart)", fontsize=16)
+ax_donut.set_title("Porcentaje de Kills Totales", fontsize=16)
 
 # 4. Mostrar en Streamlit
 st.pyplot(fig_donut)
@@ -174,7 +174,7 @@ st.pyplot(fig_donut)
 # Conclusión
 max_kills_index = kills_data.index(max(kills_data))
 mejor_modo = labels_kills[max_kills_index]
-st.success(f"💡 **Conclusión:** El modo **{mejor_modo}** concentra la mayor cantidad de kills.")
+st.success(f" **Conclusión:** El modo **{mejor_modo}** concentra la mayor cantidad de kills.")
 
 
 
@@ -183,8 +183,6 @@ st.success(f"💡 **Conclusión:** El modo **{mejor_modo}** concentra la mayor c
 
 #________________grafico 4________________
 
-
-# --- SEGUNDO GRÁFICO: Barras de Score por Modo de Juego (Formato Entero) ---
 
 st.markdown("---") 
 st.title("Puntaje Total por Modo de Juego")
@@ -206,7 +204,7 @@ bars = ax_bar.bar(modes_list, total_scores, color=bar_colors)
 
 ax_bar.set_xlabel('Modo de Juego', fontsize=12)
 ax_bar.set_ylabel('Puntaje Total Acumulado', fontsize=12)
-ax_bar.set_title('Comparación de Scores: Solo, Duos, Trios y Squads', fontsize=14)
+ax_bar.set_title('Tabla de Scores: Solo, Duos, Trios y Squads', fontsize=14)
 
 
 ax_bar.ticklabel_format(style='plain', axis='y')
@@ -222,10 +220,6 @@ for bar in bars:
 
 # 3. Mostrar en Streamlit
 st.pyplot(fig_bar)
-
-
-
-
 
 
 
