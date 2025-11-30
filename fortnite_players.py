@@ -123,6 +123,11 @@ st.dataframe(df_filtrado, height=400, hide_index=True)
 
 
 
+st.success(f" **Conclusión:** El modo concentra la mayor cantidad de kills.")
+
+
+
+
 #_____________grafico 3___________________
 
 
