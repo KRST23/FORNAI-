@@ -49,7 +49,7 @@ ax2.plot(df_chart.index, df_chart['Solo top1'], color=color2, linestyle='--', ma
 ax2.tick_params(axis='y', labelcolor=color2)
 
 # Título y ajustes
-plt.title(f'Relacion: Minutos Jugados vs Victorias (Top {top_n} jugadores)', fontsize=14)
+plt.title(f'Relacion de Minutos Jugados vs Victorias en Solo (Top {top_n} jugadores)', fontsize=14)
 fig.tight_layout()
 
 # 4. Mostrar en Streamlit
@@ -84,7 +84,7 @@ ax.plot(x, p(x), "r--", linewidth=2, label='Tendencia') # Línea un poco más gr
 
 # --- CORRECCIONES DE TAMAÑO ---
 # Antes tenías fontsize=9 y 7, los he subido a 16 y 12 para que se lean bien.
-ax.set_title("Relación Tiempo/Puntaje", fontsize=16)
+ax.set_title("Relacion de Tiempo vs Puntaje", fontsize=16)
 ax.set_xlabel("Minutos", fontsize=12)
 ax.set_ylabel("Puntaje", fontsize=12)
 
