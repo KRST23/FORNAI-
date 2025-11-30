@@ -115,6 +115,9 @@ if mostrar_datos:
 	# Juntamos las tres columnas que necesitamos 
     cols_to_show = ['Player', 'Solo score', 'Solo minutesPlayed']
 
+	
+    # Si alguna columna no existe, usamos intersection para prevenir errores
+    cols_validas = [c for c in cols_to_show if c in df.columns]
 
     df_filtrado = df[cols_validas]
 
