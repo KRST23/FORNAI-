@@ -109,22 +109,30 @@ st.write("Explora las estadísticas detalladas de los jugadores.")
 
 
 
+st.subheader("Datos del Modo Solitario")
 
+# Creamos el checkbox. Si el usuario lo marca, devuelve True
+mostrar_datos = st.checkbox("Mostrar tabla de datos detallada")
 
-# 1. Creamos una lista con 'Player' y todas las columnas que tengan "Solo" en el nombre
-# Seleccionamos columnas específicas para que no sea tan ancha la tabla
-cols_to_show = ['Player', 'Solo score', 'Solo minutesPlayed']
+if mostrar_datos:
+    st.write("Explora las estadísticas detalladas de los jugadores.")
 
-# Si alguna columna no existe, pandas fallaría, así que usamos intersection para ser seguros
-cols_validas = [c for c in cols_to_show if c in df.columns]
+    # --- DATAFRAME FILTRADO ---
+    # Nota: Todo este bloque se ejecuta SOLO si el checkbox está activo
+    
+    # 1. Creamos una lista con 'Player' y todas las columnas que tengan "Solo" en el nombre
+    cols_to_show = ['Player', 'Solo score', 'Solo minutesPlayed']
 
-df_filtrado = df[cols_validas]
+    # Si alguna columna no existe, usamos intersection para prevenir errores
+    cols_validas = [c for c in cols_to_show if c in df.columns]
 
-# Ordenamos por puntaje (de mayor a menor)
-df_filtrado = df_filtrado.sort_values(by='Solo score', ascending=False)
+    df_filtrado = df[cols_validas]
 
-# hide_index=True quita la columna de números 0,1,2... de la izquierda
-st.dataframe(df_filtrado, height=400, hide_index=True)
+    # Ordenamos por puntaje (de mayor a menor)
+    df_filtrado = df_filtrado.sort_values(by='Solo score', ascending=False)
+
+    # hide_index=True quita la columna de números 0,1,2... de la izquierda
+    st.dataframe(df_filtrado, height=400, hide_index=True)
 
 
 st.success(f" **Conclusión:** A mas minutos jugados se cumpliria que el usuario obtendria mas puntaje dado a la correlacion de un 0.98.")
