@@ -107,24 +107,24 @@ st.write("Explora las estadísticas detalladas de los jugadores.")
 
 # --- DATAFRAME FILTRADO ---
 
-if st.checkbox("Mostrar datos en tabla"):
-	
-	
-	
-	# 1. Creamos una lista con 'Player' y todas las columnas que tengan "Solo" en el nombre
-	# Seleccionamos columnas específicas para que no sea tan ancha la tabla
-	cols_to_show = ['Player', 'Solo score', 'Solo minutesPlayed']
-	
-	# Si alguna columna no existe, pandas fallaría, así que usamos intersection para ser seguros
-	cols_validas = [c for c in cols_to_show if c in df.columns]
-	
-	df_filtrado = df[cols_validas]
-	
-	# Ordenamos por puntaje (de mayor a menor)
-	df_filtrado = df_filtrado.sort_values(by='Solo score', ascending=False)
-	
-	# hide_index=True quita la columna de números 0,1,2... de la izquierda
-	st.dataframe(df_filtrado, height=400, hide_index=True)
+
+
+
+
+# 1. Creamos una lista con 'Player' y todas las columnas que tengan "Solo" en el nombre
+# Seleccionamos columnas específicas para que no sea tan ancha la tabla
+cols_to_show = ['Player', 'Solo score', 'Solo minutesPlayed']
+
+# Si alguna columna no existe, pandas fallaría, así que usamos intersection para ser seguros
+cols_validas = [c for c in cols_to_show if c in df.columns]
+
+df_filtrado = df[cols_validas]
+
+# Ordenamos por puntaje (de mayor a menor)
+df_filtrado = df_filtrado.sort_values(by='Solo score', ascending=False)
+
+# hide_index=True quita la columna de números 0,1,2... de la izquierda
+st.dataframe(df_filtrado, height=400, hide_index=True)
 
 
 st.success(f" **Conclusión:** A mas minutos jugados se cumpliria que el usuario obtendria mas puntaje dado a la correlacion de un 0.98.")
