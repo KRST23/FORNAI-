@@ -123,7 +123,7 @@ st.dataframe(df_filtrado, height=400, hide_index=True)
 
 
 
-st.success(f" **Conclusión:** El modo concentra la mayor cantidad de kills.")
+st.success(f" **Conclusión:** A mas minutos jugados se cumpliria que el usuario obtendria mas puntaje dado a la correlacion de un 0.98.")
 
 
 
