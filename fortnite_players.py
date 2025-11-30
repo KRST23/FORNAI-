@@ -106,25 +106,15 @@ st.subheader("Datos del Modo Solitario")
 st.write("Explora las estadísticas detalladas de los jugadores.")
 
 # --- DATAFRAME FILTRADO ---
-
-
-
-st.subheader("Datos del Modo Solitario")
-
 # Creamos el checkbox. Si el usuario lo marca, devuelve True
-mostrar_datos = st.checkbox("Mostrar tabla de datos detallada")
+mostrar_datos = st.checkbox("Mostrar datos en tabla")
 
 if mostrar_datos:
     st.write("Explora las estadísticas detalladas de los jugadores.")
 
-    # --- DATAFRAME FILTRADO ---
-    # Nota: Todo este bloque se ejecuta SOLO si el checkbox está activo
-    
-    # 1. Creamos una lista con 'Player' y todas las columnas que tengan "Solo" en el nombre
+	# Juntamos las tres columnas que necesitamos 
     cols_to_show = ['Player', 'Solo score', 'Solo minutesPlayed']
 
-    # Si alguna columna no existe, usamos intersection para prevenir errores
-    cols_validas = [c for c in cols_to_show if c in df.columns]
 
     df_filtrado = df[cols_validas]
 
