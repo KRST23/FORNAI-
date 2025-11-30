@@ -233,7 +233,7 @@ for bar in bars:
 st.pyplot(fig_bar)
 
 
-max_Score_index = total_scores.index(max(kills_data))
+max_score_index = total_scores.index(max(total_scores))
 Mas_Score = modes_list[max_Score_index]
 st.success(f" **Conclusión:** el modo de juego que mas Score te da es : {Mas_Score} ")
 
