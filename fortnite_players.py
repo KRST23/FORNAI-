@@ -233,8 +233,14 @@ for bar in bars:
 st.pyplot(fig_bar)
 
 
-max_score_index = total_scores.index(max(total_scores))
-Mas_Score = modes_list[max_Score_index]
-st.success(f" **Conclusión:** el modo de juego que mas Score te da es : {Mas_Score} ")
+max_score_val = max(total_scores)
+
+# Encontramos en qué posición (índice) está ese valor máximo
+max_score_index = total_scores.index(max_score_val)
+
+# Usamos ese índice para sacar el nombre del modo de la lista 'modes_list'
+modo_ganador = modes_list[max_score_index]
+
+st.success(f"**Conclusión:** El modo de juego que más Score te da es: **{modo_ganador}** con un total de {int(max_score_val):,} puntos.")
 
 
