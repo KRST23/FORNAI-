@@ -243,4 +243,3 @@ modo_ganador = modes_list[max_score_index]
 
 st.success(f"**Conclusión:** El modo de juego que más Score te da es: **{modo_ganador}** con un total de {int(max_score_val):,} puntos.")
 
-
